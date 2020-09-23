@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,10 @@
 		1E38D593251B2884001D50D6 /* PhoneNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D591251B2884001D50D6 /* PhoneNotes.xcdatamodeld */; };
 		1E38D59E251B2885001D50D6 /* PhoneNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D59D251B2885001D50D6 /* PhoneNotesTests.swift */; };
 		1E38D5A9251B2885001D50D6 /* PhoneNotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D5A8251B2885001D50D6 /* PhoneNotesUITests.swift */; };
+		1E38D5C6251B2ED6001D50D6 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */; };
+		1E38D5D6251B4218001D50D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E38D5D8251B4218001D50D6 /* Localizable.strings */; };
+		1EC7974F251B51660039CD75 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7974E251B51660039CD75 /* Extensions.swift */; };
+		1EC79755251B5F5F0039CD75 /* HapticEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 1EC79754251B5F5F0039CD75 /* HapticEngine */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,11 @@
 		1E38D5A4251B2885001D50D6 /* PhoneNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E38D5A8251B2885001D50D6 /* PhoneNotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNotesUITests.swift; sourceTree = "<group>"; };
 		1E38D5AA251B2885001D50D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataTypes.swift; path = Model/DataTypes.swift; sourceTree = "<group>"; };
+		1E38D5CA251B2F75001D50D6 /* PhoneNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneNotes.entitlements; sourceTree = "<group>"; };
+		1E38D5D7251B4218001D50D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E38D5DD251B422A001D50D6 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1EC7974E251B51660039CD75 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC79755251B5F5F0039CD75 /* HapticEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +89,7 @@
 		1E38D57A251B2882001D50D6 = {
 			isa = PBXGroup;
 			children = (
+				1E38D5D8251B4218001D50D6 /* Localizable.strings */,
 				1E38D585251B2882001D50D6 /* PhoneNotes */,
 				1E38D59C251B2885001D50D6 /* PhoneNotesTests */,
 				1E38D5A7251B2885001D50D6 /* PhoneNotesUITests */,
@@ -99,6 +110,7 @@
 		1E38D585251B2882001D50D6 /* PhoneNotes */ = {
 			isa = PBXGroup;
 			children = (
+				1E38D5CA251B2F75001D50D6 /* PhoneNotes.entitlements */,
 				1E38D586251B2882001D50D6 /* PhoneNotesApp.swift */,
 				1E38D588251B2882001D50D6 /* ContentView.swift */,
 				1E38D58A251B2884001D50D6 /* Assets.xcassets */,
@@ -106,6 +118,8 @@
 				1E38D594251B2885001D50D6 /* Info.plist */,
 				1E38D591251B2884001D50D6 /* PhoneNotes.xcdatamodeld */,
 				1E38D58C251B2884001D50D6 /* Preview Content */,
+				1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */,
+				1EC7974E251B51660039CD75 /* Extensions.swift */,
 			);
 			path = PhoneNotes;
 			sourceTree = "<group>";
@@ -152,6 +166,9 @@
 			dependencies = (
 			);
 			name = PhoneNotes;
+			packageProductDependencies = (
+				1EC79754251B5F5F0039CD75 /* HapticEngine */,
+			);
 			productName = PhoneNotes;
 			productReference = 1E38D583251B2882001D50D6 /* PhoneNotes.app */;
 			productType = "com.apple.product-type.application";
@@ -221,8 +238,12 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 1E38D57A251B2882001D50D6;
+			packageReferences = (
+				1EC79753251B5F5F0039CD75 /* XCRemoteSwiftPackageReference "HapticEngine" */,
+			);
 			productRefGroup = 1E38D584251B2882001D50D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -240,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E38D58E251B2884001D50D6 /* Preview Assets.xcassets in Resources */,
+				1E38D5D6251B4218001D50D6 /* Localizable.strings in Resources */,
 				1E38D58B251B2884001D50D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,7 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E38D590251B2884001D50D6 /* Persistence.swift in Sources */,
+				1EC7974F251B51660039CD75 /* Extensions.swift in Sources */,
 				1E38D589251B2882001D50D6 /* ContentView.swift in Sources */,
+				1E38D5C6251B2ED6001D50D6 /* DataTypes.swift in Sources */,
 				1E38D593251B2884001D50D6 /* PhoneNotes.xcdatamodeld in Sources */,
 				1E38D587251B2882001D50D6 /* PhoneNotesApp.swift in Sources */,
 			);
@@ -302,6 +326,19 @@
 			targetProxy = 1E38D5A5251B2885001D50D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1E38D5D8251B4218001D50D6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E38D5D7251B4218001D50D6 /* en */,
+				1E38D5DD251B422A001D50D6 /* es */,
+			);
+			name = Localizable.strings;
+			path = PhoneNotes/Localizations;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1E38D5AB251B2885001D50D6 /* Debug */ = {
@@ -425,6 +462,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PhoneNotes/PhoneNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = ZQDPVPQ343;
@@ -437,6 +475,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = code.ottodev.PhoneNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -447,6 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PhoneNotes/PhoneNotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneNotes/Preview Content\"";
 				DEVELOPMENT_TEAM = ZQDPVPQ343;
@@ -459,6 +499,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = code.ottodev.PhoneNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -588,6 +629,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1EC79753251B5F5F0039CD75 /* XCRemoteSwiftPackageReference "HapticEngine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/josavicente/HapticEngine.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1EC79754251B5F5F0039CD75 /* HapticEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1EC79753251B5F5F0039CD75 /* XCRemoteSwiftPackageReference "HapticEngine" */;
+			productName = HapticEngine;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1E38D591251B2884001D50D6 /* PhoneNotes.xcdatamodeld */ = {

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "HapticEngine",
+        "repositoryURL": "https://github.com/josavicente/HapticEngine.git",
+        "state": {
+          "branch": null,
+          "revision": "fdac1d14746552d36fc1277373278e57da1565d7",
+          "version": "0.0.6"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

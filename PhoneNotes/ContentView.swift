@@ -7,38 +7,128 @@
 
 import SwiftUI
 import CoreData
+import HapticEngine
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    @EnvironmentObject private var haptics: HapticEngine
+    @State var showModal : Bool = false
+    @State var modalSelection : Int = 1
+    
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \PhoneNote.timestamp, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    private var items: FetchedResults<PhoneNote>
+    
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-            }
-            .onDelete(perform: deleteItems)
+        
+        NavigationView{
+            ZStack{
+                Color("Background").ignoresSafeArea()
+                VStack{
+                    List{
+                        
+                        ForEach(items) { item in
+                            HStack{
+                                Image(systemName: item.caller.icon).foregroundColor(item.caller.color)
+                                    .font(.system(.title))
+                                
+                                VStack{
+                                    
+                                    HStack {
+                                        Text(item.contactName ?? "Empty")
+                                            .font(.system(.title, design: .rounded))
+                                            .foregroundColor(.primary)
+                                            .fontWeight(.bold)
+                                        Spacer()
+                                    }
+                                    HStack{
+                                        Text(item.note ?? "Empty")
+                                            .font(.system(.caption, design: .rounded))
+                                            .foregroundColor(.gray)
+                                            .lineLimit(3)
+                                        Spacer()
+                                    }
+                                    HStack{
+                                        Text(item.timestamp?.dateToString(date: item.timestamp!) ?? "Empty")
+                                            .font(.system(.caption, design: .rounded))
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                    }
+                                }
+                                Spacer()
+
+                                    Button(action: {
+                                    }) {
+                                        Image(systemName:"phone.circle.fill")
+                                            .font(.system(.title))
+                                            .foregroundColor(Color.purple)
+                                    }.buttonStyle(PlainButtonStyle())
+                            }.onTapGesture{
+                                self.showModal = true
+                                self.modalSelection = 2
+                                haptics.simpleSuccess()
+                            }
+                            .padding(10).listRowInsets(EdgeInsets())
+                            .background(Color("BackgroundCell"))
+                            
+                        }.onDelete(perform: deleteItems)
+                        
+                        
+                    }.listStyle(InsetGroupedListStyle())
+                    .background(Color("Background"))
+                    
+                }
+            }.sheet(isPresented: self.$showModal , content: {
+                if modalSelection == 1 {
+//                    AddView(services: self.services, subs: self.$subs, showModal: self.$showModal,  isCustom: false, serv: self.services.service[self.servIndex])//.environment(\.managedObjectContext, viewContext)
+                }else{
+//                    AddView(services: self.services, subs: self.$subs, showModal: self.$showModal,  isCustom: true, serv: self.services.service[0])//.environment(\.managedObjectContext, viewContext)
+                }
+            })
+            .navigationTitle("Notas").foregroundColor(.black)
+            .navigationBarItems( leading:
+                                    Button(action: {
+                                    }, label: {
+                                        Label("Info", systemImage: "info.circle.fill")
+                                        
+                                    }),
+                                 trailing:
+                                    Button(action: {
+                                        self.showModal.toggle()
+                                        modalSelection = 1
+                                        haptics.simpleSuccess()
+                                    }, label: {
+                                            Label("Add Item", systemImage: "plus")
+                                        
+                                    })
+            )
         }
         .toolbar {
             #if os(iOS)
             EditButton()
             #endif
-
             Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+                Label("Info", systemImage: "info.circle.fill")
             }
+            
         }
     }
-
+    
+    
+    
+    
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            
+            let newItem = PhoneNote(context: viewContext)
+            newItem.contactName = "Name "
+            newItem.telephone = "Telephont "
+            newItem.note = "Extensive Note about the call, Extensive Note about the call, Extensive Note about the call, Extensive Note about the call, Extensive Note about the call"
+            newItem.fromWho = Caller.unknown.rawValue
             newItem.timestamp = Date()
-
+            newItem.id = UUID()
             do {
                 try viewContext.save()
             } catch {
@@ -49,11 +139,11 @@ struct ContentView: View {
             }
         }
     }
-
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {
