@@ -7,6 +7,9 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+import WidgetKit
+import CoreData
 
 class DataDetector {
 
@@ -55,7 +58,10 @@ struct PhoneNumber {
     }
 
     private init (string: String) { self.number = string }
-
+    
+    func getNumber() -> String {
+        return self.number
+    }
     func makeACall() {
         guard let url = URL(string: "tel://\(number.onlyDigits())"),
             UIApplication.shared.canOpenURL(url) else { return }
@@ -100,5 +106,82 @@ extension Date {
         formatter.dateStyle = .medium
         formatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         return formatter.string(from: date)
+    }
+}
+
+extension View{
+    
+    func saveContext(context: NSManagedObjectContext, phoneNotes: FetchedResults<PhoneNote>) {
+
+        if context.hasChanges {
+
+            do {
+                try context.save()
+                // Guardamos localmente de forma compartida
+                var notesData : [WidgetNoteData] = []
+                for note in phoneNotes {
+                    let noteMod = WidgetNoteData(id: note.id, contactName: note.contactName!, note: note.note, fromWho: note.fromWho, dayToCall: note.daytoCall!, timestamp: note.timestamp!, telephone: note.telephone! )
+                    notesData.append(noteMod)
+                }
+                saveWidgetNotesData(widgetData: notesData)
+                WidgetCenter.shared.reloadTimelines(ofKind: "PhoneNotesAppWidget")
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+
+
+    }
+
+    func deleteSubscription(note: PhoneNote, context: NSManagedObjectContext, phoneNotes: FetchedResults<PhoneNote>) {
+        
+        context.delete(note)
+
+        context.performAndWait {
+            do {
+                // Guardamos localmente de forma compartida
+                try context.save()
+                var notesData : [WidgetNoteData] = []
+                for note in phoneNotes {
+                    let noteMod = WidgetNoteData(id: note.id, contactName: note.contactName!, note: note.note, fromWho: note.fromWho, dayToCall: note.daytoCall!, timestamp: note.timestamp!, telephone: note.telephone! )
+                    notesData.append(noteMod)
+                }
+                
+                saveWidgetNotesData(widgetData: notesData)
+                WidgetCenter.shared.reloadTimelines(ofKind: "BulletsAppWidget")
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+        WidgetCenter.shared.reloadTimelines(ofKind: "BulletsAppWidget")
+    }
+
+    func saveWidgetNotesData(widgetData: [WidgetNoteData]) {
+        let documentsDirectory = FileManager().containerURL(forSecurityApplicationGroupIdentifier: AppGroup.ruin.rawValue)
+        let archiveURL = documentsDirectory?.appendingPathComponent("widgetsNotesData.json")
+        let encoder = JSONEncoder()
+        if let dataToSave = try? encoder.encode(widgetData) {
+            do {
+                try dataToSave.write(to: archiveURL!)
+            } catch {
+                // TODO: ("Error: Can't save Counters")
+                return;
+            }
+        }
+    }
+
+    func loadWidgetNotesData() -> [WidgetNoteData] {
+        let documentsDirectory = FileManager().containerURL(forSecurityApplicationGroupIdentifier: AppGroup.ruin.rawValue)
+        guard let archiveURL = documentsDirectory?.appendingPathComponent("widgetsNotesData.json") else { return [WidgetNoteData]() }
+
+        guard let codeData = try? Data(contentsOf: archiveURL) else { return [] }
+
+        let decoder = JSONDecoder()
+
+        let loadedWidgetData = (try? decoder.decode([WidgetNoteData].self, from: codeData)) ?? [WidgetNoteData]()
+
+        return loadedWidgetData
     }
 }

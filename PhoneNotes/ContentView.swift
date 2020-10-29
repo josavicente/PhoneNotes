@@ -66,12 +66,21 @@ struct ContentView: View {
                                             .foregroundColor(Color.purple)
                                     }.buttonStyle(PlainButtonStyle())
                             }.onTapGesture{
-                                self.showModal = true
                                 self.modalSelection = 2
                                 haptics.simpleSuccess()
+                                self.showModal.toggle()
                             }
                             .padding(10).listRowInsets(EdgeInsets())
                             .background(Color("BackgroundCell"))
+                            .sheet(isPresented: self.$showModal , onDismiss: {
+                            })
+                            {
+                                if self.modalSelection == 1 {
+                                    AddView()
+                                }else{
+                                    EditView()
+                                }
+                            }
                             
                         }.onDelete(perform: deleteItems)
                         
@@ -80,30 +89,26 @@ struct ContentView: View {
                     .background(Color("Background"))
                     
                 }
-            }.sheet(isPresented: self.$showModal , content: {
-                if modalSelection == 1 {
-//                    AddView(services: self.services, subs: self.$subs, showModal: self.$showModal,  isCustom: false, serv: self.services.service[self.servIndex])//.environment(\.managedObjectContext, viewContext)
-                }else{
-//                    AddView(services: self.services, subs: self.$subs, showModal: self.$showModal,  isCustom: true, serv: self.services.service[0])//.environment(\.managedObjectContext, viewContext)
-                }
-            })
-            .navigationTitle("Notas").foregroundColor(.black)
+            }
+            .navigationTitle(LocalizedStringKey("Notas")).foregroundColor(.black)
             .navigationBarItems( leading:
                                     Button(action: {
                                     }, label: {
                                         Label("Info", systemImage: "info.circle.fill")
-                                        
                                     }),
                                  trailing:
                                     Button(action: {
-                                        self.showModal.toggle()
-                                        modalSelection = 1
+                                        
+                                        self.modalSelection = 1
                                         haptics.simpleSuccess()
+                                        self.showModal.toggle()
+                                        addItem()
                                     }, label: {
                                             Label("Add Item", systemImage: "plus")
                                         
                                     })
             )
+            
         }
         .toolbar {
             #if os(iOS)

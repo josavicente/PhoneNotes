@@ -17,8 +17,12 @@
 		1E38D5A9251B2885001D50D6 /* PhoneNotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D5A8251B2885001D50D6 /* PhoneNotesUITests.swift */; };
 		1E38D5C6251B2ED6001D50D6 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */; };
 		1E38D5D6251B4218001D50D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E38D5D8251B4218001D50D6 /* Localizable.strings */; };
+		1E4487782523C74A00E665B0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E4487772523C74A00E665B0 /* CloudKit.framework */; };
 		1EC7974F251B51660039CD75 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7974E251B51660039CD75 /* Extensions.swift */; };
 		1EC79755251B5F5F0039CD75 /* HapticEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 1EC79754251B5F5F0039CD75 /* HapticEngine */; };
+		1EFFFA39254AAB3E0052BC34 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFFFA38254AAB3E0052BC34 /* AddView.swift */; };
+		1EFFFA3E254AAB510052BC34 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFFFA3D254AAB510052BC34 /* EditView.swift */; };
+		1EFFFA44254AADA40052BC34 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFFFA43254AADA40052BC34 /* NoteModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,11 +57,15 @@
 		1E38D5A4251B2885001D50D6 /* PhoneNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E38D5A8251B2885001D50D6 /* PhoneNotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNotesUITests.swift; sourceTree = "<group>"; };
 		1E38D5AA251B2885001D50D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataTypes.swift; path = Model/DataTypes.swift; sourceTree = "<group>"; };
+		1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		1E38D5CA251B2F75001D50D6 /* PhoneNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneNotes.entitlements; sourceTree = "<group>"; };
 		1E38D5D7251B4218001D50D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E38D5DD251B422A001D50D6 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E4487772523C74A00E665B0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		1EC7974E251B51660039CD75 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1EFFFA38254AAB3E0052BC34 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		1EFFFA3D254AAB510052BC34 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		1EFFFA43254AADA40052BC34 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EC79755251B5F5F0039CD75 /* HapticEngine in Frameworks */,
+				1E4487782523C74A00E665B0 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,11 +98,13 @@
 		1E38D57A251B2882001D50D6 = {
 			isa = PBXGroup;
 			children = (
+				1EFFFA42254AAD970052BC34 /* Model */,
 				1E38D5D8251B4218001D50D6 /* Localizable.strings */,
 				1E38D585251B2882001D50D6 /* PhoneNotes */,
 				1E38D59C251B2885001D50D6 /* PhoneNotesTests */,
 				1E38D5A7251B2885001D50D6 /* PhoneNotesUITests */,
 				1E38D584251B2882001D50D6 /* Products */,
+				1E4487762523C74A00E665B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,8 +129,9 @@
 				1E38D594251B2885001D50D6 /* Info.plist */,
 				1E38D591251B2884001D50D6 /* PhoneNotes.xcdatamodeld */,
 				1E38D58C251B2884001D50D6 /* Preview Content */,
-				1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */,
 				1EC7974E251B51660039CD75 /* Extensions.swift */,
+				1EFFFA38254AAB3E0052BC34 /* AddView.swift */,
+				1EFFFA3D254AAB510052BC34 /* EditView.swift */,
 			);
 			path = PhoneNotes;
 			sourceTree = "<group>";
@@ -148,6 +160,23 @@
 				1E38D5AA251B2885001D50D6 /* Info.plist */,
 			);
 			path = PhoneNotesUITests;
+			sourceTree = "<group>";
+		};
+		1E4487762523C74A00E665B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E4487772523C74A00E665B0 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1EFFFA42254AAD970052BC34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */,
+				1EFFFA43254AADA40052BC34 /* NoteModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,7 +316,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EFFFA39254AAB3E0052BC34 /* AddView.swift in Sources */,
+				1EFFFA44254AADA40052BC34 /* NoteModel.swift in Sources */,
 				1E38D590251B2884001D50D6 /* Persistence.swift in Sources */,
+				1EFFFA3E254AAB510052BC34 /* EditView.swift in Sources */,
 				1EC7974F251B51660039CD75 /* Extensions.swift in Sources */,
 				1E38D589251B2882001D50D6 /* ContentView.swift in Sources */,
 				1E38D5C6251B2ED6001D50D6 /* DataTypes.swift in Sources */,
@@ -473,9 +505,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = code.ottodev.PhoneNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = code.josavicente.PhoneNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -497,9 +529,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = code.ottodev.PhoneNotes;
+				PRODUCT_BUNDLE_IDENTIFIER = code.josavicente.PhoneNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
