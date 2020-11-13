@@ -129,7 +129,6 @@
 				1E38D594251B2885001D50D6 /* Info.plist */,
 				1E38D591251B2884001D50D6 /* PhoneNotes.xcdatamodeld */,
 				1E38D58C251B2884001D50D6 /* Preview Content */,
-				1EC7974E251B51660039CD75 /* Extensions.swift */,
 				1EFFFA38254AAB3E0052BC34 /* AddView.swift */,
 				1EFFFA3D254AAB510052BC34 /* EditView.swift */,
 			);
@@ -175,6 +174,7 @@
 			children = (
 				1E38D5C5251B2ED6001D50D6 /* DataTypes.swift */,
 				1EFFFA43254AADA40052BC34 /* NoteModel.swift */,
+				1EC7974E251B51660039CD75 /* Extensions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

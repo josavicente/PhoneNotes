@@ -22,18 +22,13 @@ struct AddView: View {
     var body: some View {
         VStack{
             Text("Add Note").font(.system(.title, design: .rounded))
-            Form{
-                HStack{
-                    Text(LocalizedStringKey("Name"))
-                    Spacer()
-                    TextField(LocalizedStringKey("Name"), text: self.$note.contactName).padding(.leading).keyboardType(.default).multilineTextAlignment(.trailing)
-                }
-                HStack{
-                    Text(LocalizedStringKey("Name"))
-                    Spacer()
-                    TextField(LocalizedStringKey("Name"), text: self.$note.contactName).padding(.leading).keyboardType(.default).multilineTextAlignment(.trailing)
-                }
-            }
+//            Form{
+//                HStack{
+//                    Text(LocalizedStringKey("Name"))
+//                    Spacer()
+//                    TextField(LocalizedStringKey("Name"), text: self.$note.contactName).padding(.leading).keyboardType(.default).multilineTextAlignment(.trailing)
+//                }
+//            }
         }
         
     }

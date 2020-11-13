@@ -60,4 +60,26 @@ extension PhoneNote {
             self.fromWho = newValue.rawValue
         }
     }
+    
+    var dayToCallModel: NoteDate {
+        
+        get {
+            return NoteDate(date: self.daytoCall ?? Date())
+        }
+        
+        set {
+            self.daytoCall = newValue.completeDate
+        }
+    }
+    
+    var phone: PhoneNumber {
+        
+        get {
+            return PhoneNumber(extractFrom: self.telephone ?? "+34999888777")!
+        }
+        
+        set {
+            self.telephone = newValue.getNumber()
+        }
+    }
 }

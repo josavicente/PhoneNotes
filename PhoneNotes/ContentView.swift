@@ -12,8 +12,8 @@ import HapticEngine
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var haptics: HapticEngine
-    @State var showModal : Bool = false
-    @State var modalSelection : Int = 1
+    @State var showAdd : Bool = false
+    @EnvironmentObject var appState: AppState
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \PhoneNote.timestamp, ascending: true)],
@@ -28,60 +28,10 @@ struct ContentView: View {
                 Color("Background").ignoresSafeArea()
                 VStack{
                     List{
-                        
                         ForEach(items) { item in
-                            HStack{
-                                Image(systemName: item.caller.icon).foregroundColor(item.caller.color)
-                                    .font(.system(.title))
-                                
-                                VStack{
-                                    
-                                    HStack {
-                                        Text(item.contactName ?? "Empty")
-                                            .font(.system(.title, design: .rounded))
-                                            .foregroundColor(.primary)
-                                            .fontWeight(.bold)
-                                        Spacer()
-                                    }
-                                    HStack{
-                                        Text(item.note ?? "Empty")
-                                            .font(.system(.caption, design: .rounded))
-                                            .foregroundColor(.gray)
-                                            .lineLimit(3)
-                                        Spacer()
-                                    }
-                                    HStack{
-                                        Text(item.timestamp?.dateToString(date: item.timestamp!) ?? "Empty")
-                                            .font(.system(.caption, design: .rounded))
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                    }
-                                }
-                                Spacer()
-
-                                    Button(action: {
-                                    }) {
-                                        Image(systemName:"phone.circle.fill")
-                                            .font(.system(.title))
-                                            .foregroundColor(Color.purple)
-                                    }.buttonStyle(PlainButtonStyle())
-                            }.onTapGesture{
-                                self.modalSelection = 2
-                                haptics.simpleSuccess()
-                                self.showModal.toggle()
-                            }
+                            CompleteView(item: item)
                             .padding(10).listRowInsets(EdgeInsets())
                             .background(Color("BackgroundCell"))
-                            .sheet(isPresented: self.$showModal , onDismiss: {
-                            })
-                            {
-                                if self.modalSelection == 1 {
-                                    AddView()
-                                }else{
-                                    EditView()
-                                }
-                            }
-                            
                         }.onDelete(perform: deleteItems)
                         
                         
@@ -90,6 +40,8 @@ struct ContentView: View {
                     
                 }
             }
+//            NavigationLink(destination: AddView(), isActive: $appState.showActionSheet){
+//            }
             .navigationTitle(LocalizedStringKey("Notas")).foregroundColor(.black)
             .navigationBarItems( leading:
                                     Button(action: {
@@ -98,13 +50,11 @@ struct ContentView: View {
                                     }),
                                  trailing:
                                     Button(action: {
-                                        
-                                        self.modalSelection = 1
                                         haptics.simpleSuccess()
-                                        self.showModal.toggle()
+                                        self.showAdd.toggle()
                                         addItem()
                                     }, label: {
-                                            Label("Add Item", systemImage: "plus")
+                                        Label("Add Item", systemImage: "plus")
                                         
                                     })
             )
@@ -120,10 +70,7 @@ struct ContentView: View {
             
         }
     }
-    
-    
-    
-    
+
     private func addItem() {
         withAnimation {
             
@@ -157,6 +104,63 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        }
+    }
+}
+
+struct CompleteView: View {
+    
+    
+    @Environment(\.managedObjectContext) private var viewContext
+//    var item: FetchedResults<PhoneNote>.Element
+    @EnvironmentObject private var haptics: HapticEngine
+    @ObservedObject var item: PhoneNote
+    @State var showModal : Bool = false
+    
+    var body: some View {
+        HStack(alignment: .top){
+            Image(systemName: item.caller.icon).foregroundColor(item.caller.color)
+                .font(.system(.title))
+            
+            VStack{
+                HStack {
+                    Text(item.contactName ?? "Empty")
+                        .font(.system(.title, design: .rounded))
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                    Spacer()
+                }
+                HStack{
+                    Text(item.note ?? "Empty")
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundColor(.gray)
+                        .lineLimit(3)
+                    Spacer()
+                }
+                HStack{
+                    Text(item.timestamp?.dateToString(date: item.timestamp!) ?? "Empty")
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundColor(.primary)
+                    Spacer()
+                }
+            }
+            Spacer()
+            
+            Button(action: {
+            }) {
+                Image(systemName:"phone.circle.fill")
+                    .font(.system(.title))
+                    .foregroundColor(Color.purple)
+            }.buttonStyle(PlainButtonStyle())
+            
+        }.onTapGesture{
+            haptics.simpleSuccess()
+            self.showModal.toggle()
+        }
+        .sheet(isPresented: self.$showModal , onDismiss: {
+        })
+        {
+           EditView(note: item)
         }
     }
 }

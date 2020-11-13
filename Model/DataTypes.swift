@@ -77,7 +77,7 @@ enum Caller : Int16, CaseIterable, Codable {
         case .family:
             return Color.yellow
         case .friend:
-            return Color.pink
+            return Color.blue
         case .service:
             return Color.purple
         case .provider:

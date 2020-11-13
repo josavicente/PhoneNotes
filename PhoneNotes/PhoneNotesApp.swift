@@ -10,13 +10,21 @@ import HapticEngine
 
 @main
 struct PhoneNotesApp: App {
+    
     let persistenceController = PersistenceController.shared
     let haptics = HapticEngine()
+    var appState = AppState()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(haptics)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(appState)
         }
     }
+}
+
+class AppState: ObservableObject {
+    @Published var showActionSheet: Bool = false
 }
